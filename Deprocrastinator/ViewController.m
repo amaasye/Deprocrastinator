@@ -12,6 +12,7 @@
 @property NSMutableArray *tasks;
 @property (weak, nonatomic) IBOutlet UITextField *taskCreator;
 @property (weak, nonatomic) IBOutlet UITableView *taskTableView;
+@property UITableViewCell *cell;
 
 @end
 
@@ -44,9 +45,23 @@
     [self.tasks addObject:newTask];
     [self.taskTableView reloadData];
     [self.view endEditing:YES];
-    
+    self.taskCreator.text = @"";
 
 }
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.textLabel.textColor = [UIColor greenColor];
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+
+}
+
+
+
+
 
 
 
