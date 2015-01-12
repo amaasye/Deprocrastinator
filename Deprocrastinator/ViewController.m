@@ -37,7 +37,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToDoItemID"];
     cell.textLabel.text = [self.tasks objectAtIndex:indexPath.row];
 
-
     return cell;
 }
 
@@ -51,7 +50,6 @@
     self.taskCreator.text = @"";
 
 }
-
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,6 +78,10 @@
     }
 }
 
+- (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender {
+
+
+}
 
 
 
