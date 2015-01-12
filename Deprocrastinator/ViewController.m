@@ -8,7 +8,10 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+@property NSMutableArray *tasks;
+@property (weak, nonatomic) IBOutlet UITextField *taskCreator;
+@property (weak, nonatomic) IBOutlet UITableView *taskTableView;
 
 @end
 
@@ -16,12 +19,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    self.tasks = [NSMutableArray arrayWithObjects: @"Finish code challenge", @"Do laundry", @"Pay phone bill", @"Walk the dog", nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark UITableViewDataSource
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tasks.count;
 }
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToDoItemID"];
+    cell.textLabel.text = [self.tasks objectAtIndex:indexPath.row];
+
+
+    return cell;
+}
+
+- (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
+
+    NSString *newTask = [NSString stringWithFormat:@"%@", self.taskCreator.text];
+
+    [self.tasks addObject:newTask];
+    [self.taskTableView reloadData];
+    [self.view endEditing:YES];
+    
+
+}
+
+
+
+
 
 @end
