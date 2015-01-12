@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *taskCreator;
 @property (weak, nonatomic) IBOutlet UITableView *taskTableView;
 @property UITableViewCell *cell;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 
 @end
 
@@ -20,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.editButton.title = @"Edit";
 
     self.tasks = [NSMutableArray arrayWithObjects: @"Finish code challenge", @"Do laundry", @"Pay phone bill", @"Walk the dog", nil];
 }
@@ -57,8 +60,25 @@
     cell.textLabel.textColor = [UIColor greenColor];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
 
+    if ([self.editButton.title isEqualToString:@"Done"]) {
+        [self.tasks removeObjectAtIndex:indexPath.row];
+        [self.taskTableView reloadData];
+    }
+
+
+}
+- (IBAction)onEditButtonPressed:(id)sender {
+
+        self.editButton.title = @"Done";
+
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.tasks removeObjectAtIndex:indexPath.row];
+        [self.taskTableView reloadData];
+    }
+}
 
 
 

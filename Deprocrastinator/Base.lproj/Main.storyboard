@@ -43,6 +43,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Deprocrastinator" id="n8n-QB-JbM">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="pA9-Rs-3pQ">
+                            <connections>
+                                <action selector="onEditButtonPressed:" destination="vXZ-lx-hvc" id="HJb-R8-L9d"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="acT-HK-w4P">
                             <connections>
                                 <action selector="onAddButtonPressed:" destination="vXZ-lx-hvc" id="kXr-6V-lGw"/>
@@ -50,6 +55,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="pA9-Rs-3pQ" id="TVO-J9-pua"/>
                         <outlet property="taskCreator" destination="x9T-iP-wfV" id="GMi-Gs-ZAp"/>
                         <outlet property="taskTableView" destination="NkM-m4-6X6" id="A8H-bf-03w"/>
                     </connections>
