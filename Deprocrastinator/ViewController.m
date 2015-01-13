@@ -68,14 +68,28 @@
 - (IBAction)onEditButtonPressed:(id)sender {
 
         self.editButton.title = @"Done";
+    [self.taskTableView setEditing:true animated:true];
 
 }
 
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.tasks removeObjectAtIndex:indexPath.row];
-        [self.taskTableView reloadData];
+    if (editingStyle == UITableViewCellEditingStyleDelete){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete Task" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        [alert show];
+
+       //deletions will require confirmation
+        //[self.tasks removeObjectAtIndex:indexPath.row];
+       // [self.taskTableView reloadData];
     }
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSIndexPath *indexPath = [self.taskTableView indexPathForSelectedRow];
+    if (buttonIndex != alertView.cancelButtonIndex) {
+
+        [self.tasks removeObjectAtIndex:indexPath.row];
+        [self.taskTableView reloadData];}
 }
 
 - (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender {
@@ -101,11 +115,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+
 {
+    if ([self.editButton.title  isEqual: @"Done"]) {
+
+
     NSString *stringToMove = [self.tasks objectAtIndex:sourceIndexPath.row];
     [self.tasks removeObject:stringToMove];
     [self.tasks insertObject:stringToMove atIndex:destinationIndexPath.row];
-    [self.taskTableView reloadData];
+    [self.taskTableView reloadData];      }
 }
 
 
