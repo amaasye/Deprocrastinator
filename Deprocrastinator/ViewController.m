@@ -79,8 +79,33 @@
 }
 
 - (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender {
+    CGPoint point = [sender locationInView:self.taskTableView];
+    NSIndexPath *indexPath = [self.taskTableView indexPathForRowAtPoint:point];
+    UITableViewCell *cell = [self.taskTableView cellForRowAtIndexPath:indexPath];
 
+    if (cell.textLabel.textColor == [UIColor blackColor])  {
+        cell.textLabel.textColor = [UIColor redColor];
+    }
+    else if (cell.textLabel.textColor == [UIColor redColor]) {
+        cell.textLabel.textColor = [UIColor yellowColor];
+    }
+    else if (cell.textLabel.textColor == [UIColor yellowColor]) {
+        cell.textLabel.textColor = [UIColor greenColor];
+    }
 
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    NSString *stringToMove = [self.tasks objectAtIndex:sourceIndexPath.row];
+    [self.tasks removeObject:stringToMove];
+    [self.tasks insertObject:stringToMove atIndex:destinationIndexPath.row];
+    [self.taskTableView reloadData];
 }
 
 
