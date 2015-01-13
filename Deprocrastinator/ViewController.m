@@ -75,7 +75,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete Task" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete Task?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete", nil];
         [alert show];
 
        //deletions will require confirmation
